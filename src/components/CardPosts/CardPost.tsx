@@ -24,7 +24,7 @@ function CardPost({ element }: Props): React.ReactElement{
       })
   }
 
-  function navigateToUserDetails() {
+  function navigateToUserDetails(): void {
     navigate('UserDetails', {user: data})
   }
 

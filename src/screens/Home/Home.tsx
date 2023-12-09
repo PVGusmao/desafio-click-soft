@@ -1,9 +1,10 @@
 import { FlatList } from "react-native";
 import { Container } from "./style";
-import { useRequest } from "../../hooks/useRequest";
 import CardPost from "../../components/CardPosts/CardPost";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../../components/Common/Loading";
+import PostButton from "../../components/PostButton/PostButton";
+import api from "../../services/api";
 
 export interface IPosts {
   userId: number
@@ -13,14 +14,32 @@ export interface IPosts {
 }
 
 export function Home(): React.ReactElement {
-  const {data, isLoading, isError, error}: {data: IPosts[], isLoading: boolean, isError: boolean, error: any} = useRequest('allPosts', '/posts');
+  const [data, setData] = useState<IPosts[]>([]);
+
+  function getAllPosts(): void {
+    api.get('/posts')
+      .then((res) => setData(res.data))
+      .catch((error) => console.log(error.response.message))
+  }
 
   const [page, setPage] = useState(10);
+  const [showInputPost, setShowInputPost] = useState(false);
 
-  if (isLoading) return <Loading />
+  useEffect(() => {
+    getAllPosts();
+  }, [])
+
+  console.log(data[0])
 
   return (
     <Container>
+      <PostButton
+        data={data}
+        setData={setData}
+        showInputPost={showInputPost}
+        setShowInputPost={setShowInputPost}
+      />
+
       <FlatList
         style={{backgroundColor: '#eeeeee'}}
         data={data?.slice(0, page)}
