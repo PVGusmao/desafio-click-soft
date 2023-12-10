@@ -16,7 +16,7 @@ function PostButton({ showInputPost, setShowInputPost, data, setData }: Props): 
   const [newPost, setNewPost] = useState({
     name: '',
     title: '',
-    post: '',
+    body: '',
     userId: 11
   })
 
@@ -32,7 +32,13 @@ function PostButton({ showInputPost, setShowInputPost, data, setData }: Props): 
 
     api
       .post('/posts', newPost)
-      .then((res) => setData([res.data, ...data]))
+      .then((res) => {
+        const obj = {
+          name: newPost.name,
+          ...res.data,
+        }  
+        setData([obj, ...data])
+      })
       .catch((error) => console.log(error.response.message))
   }
 
@@ -72,7 +78,7 @@ function PostButton({ showInputPost, setShowInputPost, data, setData }: Props): 
             style={{
               textAlignVertical: 'top',
             }}
-            onChangeText={(post) => setNewPost({ ...newPost, post })}
+            onChangeText={(body) => setNewPost({ ...newPost, body })}
           />
 
           <ButtonPost onPress={post}>

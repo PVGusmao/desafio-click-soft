@@ -2,7 +2,6 @@ import { FlatList } from "react-native";
 import { Container } from "./style";
 import CardPost from "../../components/CardPosts/CardPost";
 import { useEffect, useState } from "react";
-import Loading from "../../components/Common/Loading";
 import PostButton from "../../components/PostButton/PostButton";
 import api from "../../services/api";
 
@@ -11,6 +10,7 @@ export interface IPosts {
   id: number
   title: string
   body: string
+  name?: string;
 }
 
 export function Home(): React.ReactElement {
@@ -43,7 +43,7 @@ export function Home(): React.ReactElement {
       <FlatList
         style={{backgroundColor: '#eeeeee'}}
         data={data?.slice(0, page)}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={(item: IPosts) => String(item.body)}
         renderItem={({item}) => (
           <CardPost element={item} />
         )}

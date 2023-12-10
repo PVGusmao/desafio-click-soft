@@ -35,7 +35,7 @@ function CardPost({ element }: Props): React.ReactElement{
   return (
     <Container onPress={() => console.log('Pressed Post')}>
       <UserWrapper onPress={navigateToUserDetails}>
-        <User>{data?.name}</User>
+        <User>{data?.name || element.name}</User>
       </UserWrapper>
 
       <Title>{element.title}</Title>
