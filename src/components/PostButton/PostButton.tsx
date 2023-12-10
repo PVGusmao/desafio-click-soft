@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import { ButtonPost, ButtonText, Container, Input, InputWrapper, Text } from './style';
+import { Container, Input, InputWrapper, Text } from './style';
 import { MaterialIcons, Feather  } from '@expo/vector-icons'; 
 import api from '../../services/api';
 import Toast from 'react-native-toast-message';
 import { IPosts } from '../../screens/Home/Home';
+import { Button } from '../Common/Button/Button';
+import { useApp } from '../../context/app.context';
 
 type Props = {
-  data: IPosts[];
   showInputPost: boolean;
-  setData: React.Dispatch<React.SetStateAction<IPosts[]>>;
   setShowInputPost: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PostButton({ showInputPost, setShowInputPost, data, setData }: Props): React.ReactElement {
+function PostButton({ showInputPost, setShowInputPost }: Props): React.ReactElement {
+  const {allPosts, setAllPosts} = useApp();
+
   const [newPost, setNewPost] = useState({
     name: '',
     title: '',
@@ -36,10 +38,10 @@ function PostButton({ showInputPost, setShowInputPost, data, setData }: Props): 
         const obj = {
           ...res.data,
           name: newPost.name,
-          id: data.length + 1
+          id: allPosts.length + 1
         }  
         console.log(obj)
-        setData([ ...data, obj])
+        setAllPosts([ ...allPosts, obj])
       })
       .catch((error) => console.log(error.response.message))
   }
@@ -83,9 +85,7 @@ function PostButton({ showInputPost, setShowInputPost, data, setData }: Props): 
             onChangeText={(body) => setNewPost({ ...newPost, body })}
           />
 
-          <ButtonPost onPress={post}>
-            <ButtonText>Postar</ButtonText>
-          </ButtonPost>
+          <Button onPress={post} title="Postar" />
         </InputWrapper>
       }
     </>

@@ -4,6 +4,7 @@ import CardPost from "../../components/CardPosts/CardPost";
 import React, { useEffect, useState } from "react";
 import PostButton from "../../components/PostButton/PostButton";
 import api from "../../services/api";
+import { useApp } from "../../context/app.context";
 
 export interface IPosts {
   userId: number
@@ -14,13 +15,14 @@ export interface IPosts {
 }
 
 export function Home(): React.ReactElement {
-  const [data, setData] = useState<IPosts[]>([]);
+  const {allPosts, setAllPosts} = useApp();
+  
   const [page, setPage] = useState(10);
   const [showInputPost, setShowInputPost] = useState(false);
 
   function getAllPosts(): void {
     api.get('/posts')
-      .then((res) => setData(res.data))
+      .then((res) => setAllPosts(res.data))
       .catch((error) => console.log(error.response.message))
   }
 
@@ -31,18 +33,16 @@ export function Home(): React.ReactElement {
   return (
     <Container>      
       <PostButton
-        data={data}
-        setData={setData}
         showInputPost={showInputPost}
         setShowInputPost={setShowInputPost}
       />
 
       <FlatList
         style={{backgroundColor: '#eeeeee'}}
-        data={data?.reverse()?.slice(0, page)}
+        data={allPosts?.reverse()?.slice(0, page)}
         keyExtractor={(item: IPosts) => String(item.body)}
         renderItem={({item}) => (
-          <CardPost setAllPosts={setData} allPosts={data} element={item} />
+          <CardPost element={item} />
         )}
         onEndReached={() => {
           setPage(page + 10);

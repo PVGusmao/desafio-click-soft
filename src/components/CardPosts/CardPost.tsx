@@ -5,14 +5,15 @@ import api from '../../services/api';
 import { IUser } from './CardPosts.intefaces';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { useApp } from '../../context/app.context';
 
 type Props = {
   element: IPosts;
-  allPosts: IPosts[];
-  setAllPosts: React.Dispatch<React.SetStateAction<IPosts[]>>;
 }
 
-function CardPost({ element, allPosts, setAllPosts }: Props): React.ReactElement{
+function CardPost({ element }: Props): React.ReactElement{
+  const {allPosts, setAllPosts} = useApp();
+
   const {navigate} = useNavigation();
 
   const [data, setData] = useState({} as IUser);
@@ -31,6 +32,7 @@ function CardPost({ element, allPosts, setAllPosts }: Props): React.ReactElement
     api.delete(`/posts/${element.id}`)
       .then((response) => {
         const filteredAllPosts = allPosts.filter((post) => post.id !== element.id)
+        filteredAllPosts.sort((a,b) => a.id -b.id)
         setAllPosts(filteredAllPosts)
       })
       .catch((error) => {
@@ -43,7 +45,11 @@ function CardPost({ element, allPosts, setAllPosts }: Props): React.ReactElement
   }
 
   function navigateToEditPost(): void {
-    navigate('EditPost', {post: element, user: data})
+    navigate('EditPost',
+      {
+        post: element, 
+        user: data, 
+      })
   }
 
   useEffect(() => {
