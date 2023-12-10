@@ -14,12 +14,22 @@ export interface IPosts {
   name?: string;
 }
 
+/**
+ * Renders the Home component.
+ *
+ * @return {React.ReactElement} The rendered Home component.
+ */
 export function Home(): React.ReactElement {
   const {allPosts, setAllPosts} = useApp();
   
   const [page, setPage] = useState(10);
   const [showInputPost, setShowInputPost] = useState(false);
 
+/**
+ * Retrieves all posts from the API.
+ *
+ * @return {void} This function does not return anything.
+ */
   function getAllPosts(): void {
     api.get('/posts')
       .then((res) => setAllPosts(res.data))

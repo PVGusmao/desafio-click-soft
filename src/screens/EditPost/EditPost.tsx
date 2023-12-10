@@ -5,13 +5,21 @@ import api from '../../services/api';
 import { Button } from '../../components/Common/Button/Button';
 import { useApp } from '../../context/app.context';
 import { IPosts } from '../Home/Home';
+import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 type Props = {
   route: IRoute;
 }
 
+/**
+ * Edits a post by sending a PATCH request to the server.
+ *
+ * @return {void} This function does not return anything.
+ */
 function EditPost({route}: Props): React.ReactElement {
   const {allPosts, setAllPosts} = useApp();
+  const {navigate} = useNavigation();
 
   const {user, post} = route.params;
 
@@ -20,6 +28,11 @@ function EditPost({route}: Props): React.ReactElement {
     body: post.body,
   });
 
+  /**
+   * Edits a post by sending a PATCH request to the server.
+   *
+   * @return {void} This function does not return anything.
+   */
   function editPost(): void {
     api
       .patch(`/posts/${post.id}`, body)
@@ -28,8 +41,20 @@ function EditPost({route}: Props): React.ReactElement {
         newArray.push(res.data);
         newArray.sort((a,b) => a.id -b.id)
         setAllPosts(newArray);
+        Toast.show({
+          type: 'success',
+          text1: 'Sucesso.',
+          text2: 'Post editado com sucesso.',
+        });
+        navigate('Home');
       })
-      .catch((error) => console.log(error.response.data))
+      .catch((error) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Algo deu errado.',
+          text2: error.response.data.message,
+        });
+      })
   }
 
   return (

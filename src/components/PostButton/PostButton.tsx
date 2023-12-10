@@ -3,7 +3,6 @@ import { Container, Input, InputWrapper, Text } from './style';
 import { MaterialIcons, Feather  } from '@expo/vector-icons'; 
 import api from '../../services/api';
 import Toast from 'react-native-toast-message';
-import { IPosts } from '../../screens/Home/Home';
 import { Button } from '../Common/Button/Button';
 import { useApp } from '../../context/app.context';
 
@@ -12,6 +11,13 @@ type Props = {
   setShowInputPost: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/**
+ * Renders the PostButton component.
+ *
+ * @param {boolean} showInputPost - flag to determine whether to show the input for creating a new post
+ * @param {function} setShowInputPost - function to toggle the showInputPost flag
+ * @return {React.ReactElement} The rendered PostButton component
+ */
 function PostButton({ showInputPost, setShowInputPost }: Props): React.ReactElement {
   const {allPosts, setAllPosts} = useApp();
 
@@ -22,6 +28,11 @@ function PostButton({ showInputPost, setShowInputPost }: Props): React.ReactElem
     userId: 11
   })
 
+  /**
+   * Posts data to the server.
+   *
+   * @return {void} No return value.
+   */
   function post(): void {
     if (newPost.name.length === 0) {
       Toast.show({
@@ -40,10 +51,15 @@ function PostButton({ showInputPost, setShowInputPost }: Props): React.ReactElem
           name: newPost.name,
           id: allPosts.length + 1
         }  
-        console.log(obj)
         setAllPosts([ ...allPosts, obj])
       })
-      .catch((error) => console.log(error.response.message))
+      .catch((error) => {
+        Toast.show({
+          type: 'error',
+          text1: 'Algo deu errado!',
+          text2: error?.response?.data?.message
+        });
+      })
   }
 
   return (

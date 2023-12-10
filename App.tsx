@@ -6,7 +6,12 @@ import { AppProvider } from './src/context/app.context';
 
 const queryClient = new QueryClient();
 
-export default function App() {
+/**
+ * Renders the root component of the application.
+ *
+ * @return {React.ReactElement} The rendered root component.
+ */
+export default function App(): React.ReactElement {
   return (
     <AppProvider>
       <QueryClientProvider client={queryClient}>

@@ -6,6 +6,12 @@ type Props = {
   route: IRoute;
 }
 
+/**
+ * Renders the user details component.
+ *
+ * @param {Props} route - The route object containing user details.
+ * @return {React.ReactElement} The rendered user details component.
+ */
 function UserDetails({ route }: Props): React.ReactElement {
   const { user } = route.params;
 
