@@ -8,6 +8,7 @@ export const Container = styled.Pressable`
   border-radius: 5px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 1);
   elevation: 2;
+  position: relative;
 `;
 
 export const UserWrapper = styled.TouchableOpacity`
@@ -29,3 +30,11 @@ export const TextBody = styled.Text`
   text-align: justify;
   font-size: 12px;
 `;
+
+export const RemovePost = styled.TouchableOpacity`
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  padding: 10px;
+  z-index: 10;
+`

@@ -4,10 +4,12 @@ import { Home } from '../screens/Home/Home';
 import { Post } from '../screens/Post/Post';
 import UserDetails from '../screens/UserDetails/UserDetails';
 import { IUser } from '../components/CardPosts/CardPosts.intefaces';
+import EditPost from '../screens/EditPost/EditPost';
 
 export type RootStackParamList = {
   "Home": undefined,
   "Post": undefined,
+  "EditPost": undefined,
   "UserDetails": [string, { user: IUser; }],
 };
 
@@ -31,6 +33,7 @@ export function AppRoutes() {
       <Screen name="Home" component={Home} />
       <Screen name="Post" component={Post} />
       <Screen options={{headerTitle: 'Detalhes do Usuário'}} name="UserDetails" component={UserDetails} />
+      <Screen name='EditPost' component={EditPost} />
     </Navigator>
   );
 }

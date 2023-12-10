@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import { Container } from "./style";
 import CardPost from "../../components/CardPosts/CardPost";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostButton from "../../components/PostButton/PostButton";
 import api from "../../services/api";
 
@@ -29,10 +29,8 @@ export function Home(): React.ReactElement {
     getAllPosts();
   }, [])
 
-  console.log(data[0])
-
   return (
-    <Container>
+    <Container>      
       <PostButton
         data={data}
         setData={setData}

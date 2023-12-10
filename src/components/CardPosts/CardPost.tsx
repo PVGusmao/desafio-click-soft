@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Container, TextBody, Title, User, UserWrapper } from './style';
+import { Container, RemovePost, TextBody, Title, User, UserWrapper } from './style';
 import { IPosts } from '../../screens/Home/Home';
 import api from '../../services/api';
 import { IUser } from './CardPosts.intefaces';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 type Props = {
   element: IPosts;
@@ -28,12 +29,20 @@ function CardPost({ element }: Props): React.ReactElement{
     navigate('UserDetails', {user: data})
   }
 
+  function navigateToEditPost(): void {
+    navigate('EditPost', {post: element, user: data})
+  }
+
   useEffect(() => {
     getUser();
   }, [])
 
   return (
-    <Container onPress={() => console.log('Pressed Post')}>
+    <Container onPress={navigateToEditPost}>
+      <RemovePost onPress={() => console.log('Pressed Remove Post')}>
+        <Ionicons name="md-trash-outline" size={18} color="red" />
+      </RemovePost>
+
       <UserWrapper onPress={navigateToUserDetails}>
         <User>{data?.name || element.name}</User>
       </UserWrapper>
