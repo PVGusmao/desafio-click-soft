@@ -1,10 +1,31 @@
 import React from 'react'
-import { Container, Text } from './style';
+import { Container, InputBody, InputTitle, Text } from './style';
+import { IRoute } from '../../globalInterfaces';
 
-function EditPost(){
+type Props = {
+  route: IRoute;
+}
+
+function EditPost({route}: Props): React.ReactElement {
+  const {user, post} = route.params;
+
   return (
     <Container>
-      <Text>Meu componente</Text>
+      <InputTitle
+         maxLength={30}
+         placeholder='Título do post'
+         placeholderTextColor={'#aaaaaa'}
+      />
+
+      <InputBody
+         multiline={true}
+         numberOfLines={10}
+         placeholder='O que deseja compartilhar'
+         placeholderTextColor={'#aaaaaa'}
+         style={{
+           textAlignVertical: 'top',
+         }}
+      />
     </Container>
   );
 }

@@ -32,7 +32,6 @@ function CardPost({ element, allPosts, setAllPosts }: Props): React.ReactElement
       .then((response) => {
         const filteredAllPosts = allPosts.filter((post) => post.id !== element.id)
         setAllPosts(filteredAllPosts)
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error.response.data)

@@ -4,27 +4,34 @@
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2f056b" 
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gallahad.myapp"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.gallahad.myapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./src/assets/logo.png",
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7c246999-9db3-420d-97e2-9afd0ff73f20"
+      }
     }
   }
 }

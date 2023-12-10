@@ -8,6 +8,7 @@ export const Container = styled.Pressable`
   padding: 5px 10px;
   border: 1px solid #aaaaaa;
   border-radius: 100px;
+  background-color: #ffffff;
 `;
 
 export const Text = styled.Text`
@@ -32,7 +33,7 @@ export const ButtonPost = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   margin: 10px;
-  background-color: #3b5998;
+  background-color: #2f056b;
   padding: 8px;
   border-radius: 5px;
 `

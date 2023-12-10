@@ -1,16 +1,14 @@
 import React from 'react'
 import { Company, Container, Name, PersonalData, Text, CompanyName, Address, SectionTitle, TextWrapper, LineIndicator } from './style';
-import { IUserRoute } from '../../globalInterfaces';
+import { IRoute } from '../../globalInterfaces';
 
 type Props = {
-  route: IUserRoute;
+  route: IRoute;
 }
 
 function UserDetails({ route }: Props): React.ReactElement {
   const { user } = route.params;
 
-  console.log(JSON.stringify(route));
-  
   return (
     <Container>
       <PersonalData>

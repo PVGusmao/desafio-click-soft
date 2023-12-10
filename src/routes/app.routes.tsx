@@ -25,7 +25,7 @@ export function AppRoutes() {
           fontWeight: 'bold',
         },
         headerStyle: {
-          backgroundColor: '#3b5998',
+          backgroundColor: '#2f056b',
         },
       }}
       initialRouteName={'Home'}
@@ -33,7 +33,7 @@ export function AppRoutes() {
       <Screen name="Home" component={Home} />
       <Screen name="Post" component={Post} />
       <Screen options={{headerTitle: 'Detalhes do Usuário'}} name="UserDetails" component={UserDetails} />
-      <Screen name='EditPost' component={EditPost} />
+      <Screen options={{headerTitle: 'Editar Post'}} name='EditPost' component={EditPost} />
     </Navigator>
   );
 }
