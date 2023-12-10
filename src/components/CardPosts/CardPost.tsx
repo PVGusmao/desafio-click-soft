@@ -8,17 +8,31 @@ import { Ionicons } from '@expo/vector-icons';
 
 type Props = {
   element: IPosts;
+  allPosts: IPosts[];
+  setAllPosts: React.Dispatch<React.SetStateAction<IPosts[]>>;
 }
 
-function CardPost({ element }: Props): React.ReactElement{
+function CardPost({ element, allPosts, setAllPosts }: Props): React.ReactElement{
   const {navigate} = useNavigation();
 
   const [data, setData] = useState({} as IUser);
 
-  function getUser() {
+  function getUser(): void {
     api.get(`/users/${element.userId}`)
       .then((response) => {
         setData(response.data)
+      })
+      .catch((error) => {
+        console.log(error.response.data)
+      })
+  }
+
+  function deleteUser(): void {
+    api.delete(`/posts/${element.id}`)
+      .then((response) => {
+        const filteredAllPosts = allPosts.filter((post) => post.id !== element.id)
+        setAllPosts(filteredAllPosts)
+        console.log(response.data)
       })
       .catch((error) => {
         console.log(error.response.data)
@@ -39,7 +53,7 @@ function CardPost({ element }: Props): React.ReactElement{
 
   return (
     <Container onPress={navigateToEditPost}>
-      <RemovePost onPress={() => console.log('Pressed Remove Post')}>
+      <RemovePost onPress={deleteUser}>
         <Ionicons name="md-trash-outline" size={18} color="red" />
       </RemovePost>
 

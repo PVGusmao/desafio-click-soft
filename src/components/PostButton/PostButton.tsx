@@ -34,10 +34,12 @@ function PostButton({ showInputPost, setShowInputPost, data, setData }: Props): 
       .post('/posts', newPost)
       .then((res) => {
         const obj = {
-          name: newPost.name,
           ...res.data,
+          name: newPost.name,
+          id: data.length + 1
         }  
-        setData([obj, ...data])
+        console.log(obj)
+        setData([ ...data, obj])
       })
       .catch((error) => console.log(error.response.message))
   }

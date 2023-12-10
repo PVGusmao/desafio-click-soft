@@ -15,15 +15,14 @@ export interface IPosts {
 
 export function Home(): React.ReactElement {
   const [data, setData] = useState<IPosts[]>([]);
+  const [page, setPage] = useState(10);
+  const [showInputPost, setShowInputPost] = useState(false);
 
   function getAllPosts(): void {
     api.get('/posts')
       .then((res) => setData(res.data))
       .catch((error) => console.log(error.response.message))
   }
-
-  const [page, setPage] = useState(10);
-  const [showInputPost, setShowInputPost] = useState(false);
 
   useEffect(() => {
     getAllPosts();
@@ -40,10 +39,10 @@ export function Home(): React.ReactElement {
 
       <FlatList
         style={{backgroundColor: '#eeeeee'}}
-        data={data?.slice(0, page)}
+        data={data?.reverse()?.slice(0, page)}
         keyExtractor={(item: IPosts) => String(item.body)}
         renderItem={({item}) => (
-          <CardPost element={item} />
+          <CardPost setAllPosts={setData} allPosts={data} element={item} />
         )}
         onEndReached={() => {
           setPage(page + 10);
