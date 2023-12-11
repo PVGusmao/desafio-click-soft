@@ -1,14 +1,19 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.Pressable`
+type Props = {
+  showInputPost: boolean
+}
+
+export const Container = styled.Pressable<Props>`
   padding-horizontal: 15px;
   padding-vertical: 10px;
   margin: 10px;
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 1);
-  elevation: 2;
+  elevation: ${({showInputPost}) => showInputPost ? 0 : 2};
   position: relative;
+  background-color: ${({showInputPost}) => showInputPost ? 'rgba(0,0,0,0.1)' : '#ffffff'};
 `;
 
 export const UserWrapper = styled.TouchableOpacity`

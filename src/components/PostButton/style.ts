@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 export const Container = styled.Pressable`
   align-items: center;
   flex-direction: row;
-  margin-top: 10px;
+  margin-vertical: 10px;
   margin-horizontal: 10px;
   padding: 5px 10px;
   border: 1px solid #aaaaaa;

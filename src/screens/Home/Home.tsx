@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import PostButton from "../../components/PostButton/PostButton";
 import api from "../../services/api";
 import { useApp } from "../../context/app.context";
+import { BlurView } from 'expo-blur';
 
 export interface IPosts {
   userId: number
@@ -47,18 +48,18 @@ export function Home(): React.ReactElement {
         setShowInputPost={setShowInputPost}
       />
 
-      <FlatList
-        style={{backgroundColor: '#eeeeee'}}
-        data={allPosts?.reverse()?.slice(0, page)}
-        keyExtractor={(item: IPosts) => String(item.body)}
-        renderItem={({item}) => (
-          <CardPost element={item} />
-        )}
-        onEndReached={() => {
-          setPage(page + 10);
-        }}
-        onEndReachedThreshold={0.5}
-      />
+        <FlatList
+          style={{backgroundColor: showInputPost ? 'rgba(0,0,0,0.6)' : '#eeeeee'}}
+          data={allPosts?.sort((a, b) => a.id - b.id)?.reverse()?.slice(0, page)}
+          keyExtractor={(item: IPosts) => String(item.body)}
+          renderItem={({item}) => (
+            <CardPost showInputPost={showInputPost} element={item} />
+          )}
+          onEndReached={() => {
+            setPage(page + 10);
+          }}
+          onEndReachedThreshold={0.5}
+        />
     </Container>
   )
 }

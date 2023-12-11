@@ -10,15 +10,17 @@ import Toast from 'react-native-toast-message';
 
 type Props = {
   element: IPosts;
+  showInputPost: boolean;
 }
 
 /**
  * Renders a card post component.
  *
- * @param {Props} element - the props object containing the element for the card post
- * @return {React.ReactElement} - the rendered card post component
+ * @param {Props} element - The element prop.
+ * @param {boolean} showInputPost - The showInputPost prop.
+ * @return {React.ReactElement} The rendered card post component.
  */
-function CardPost({ element }: Props): React.ReactElement{
+function CardPost({ element, showInputPost }: Props): React.ReactElement{
   const {allPosts, setAllPosts} = useApp();
 
   const {navigate} = useNavigation();
@@ -94,8 +96,8 @@ function CardPost({ element }: Props): React.ReactElement{
   }, [])
 
   return (
-    <Container onPress={navigateToEditPost}>
-      <RemovePost onPress={deleteUser}>
+    <Container disabled={showInputPost} showInputPost={showInputPost} onPress={navigateToEditPost}>
+      <RemovePost disabled={showInputPost} onPress={deleteUser}>
         <Ionicons name="md-trash-outline" size={18} color="red" />
       </RemovePost>
 
