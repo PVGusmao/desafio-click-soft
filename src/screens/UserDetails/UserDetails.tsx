@@ -1,6 +1,7 @@
 import React from 'react'
 import { Company, Container, Name, PersonalData, Text, CompanyName, Address, SectionTitle, TextWrapper, LineIndicator } from './style';
 import { IRoute } from '../../globalInterfaces';
+import { Linking } from 'react-native';
 
 type Props = {
   route: IRoute;

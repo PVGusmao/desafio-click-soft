@@ -1,14 +1,12 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { Home } from '../screens/Home/Home';
-import { Post } from '../screens/Post/Post';
 import UserDetails from '../screens/UserDetails/UserDetails';
 import { IUser } from '../components/CardPosts/CardPosts.intefaces';
 import EditPost from '../screens/EditPost/EditPost';
 
 export type RootStackParamList = {
   "Home": undefined,
-  "Post": undefined,
   "EditPost": undefined,
   "UserDetails": [string, { user: IUser; }],
 };
@@ -31,7 +29,6 @@ export function AppRoutes() {
       initialRouteName={'Home'}
     >
       <Screen name="Home" component={Home} />
-      <Screen name="Post" component={Post} />
       <Screen options={{headerTitle: 'Detalhes do Usuário'}} name="UserDetails" component={UserDetails} />
       <Screen options={{headerTitle: 'Editar Post'}} name='EditPost' component={EditPost} />
     </Navigator>

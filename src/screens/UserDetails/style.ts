@@ -19,7 +19,6 @@ export const Name = styled.Text`
 `
 
 export const Text = styled.Text`
-
 `;
 
 export const Company = styled.View`
