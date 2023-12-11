@@ -5,6 +5,7 @@ type Props = {
 }
 
 export const Container = styled.Pressable<Props>`
+  position: relative;
   padding-horizontal: 15px;
   padding-vertical: 10px;
   margin: 10px;
@@ -34,6 +35,7 @@ export const Title = styled.Text`
 export const TextBody = styled.Text`
   text-align: justify;
   font-size: 12px;
+  width: 95%;
 `;
 
 export const RemovePost = styled.TouchableOpacity`
@@ -42,4 +44,10 @@ export const RemovePost = styled.TouchableOpacity`
   top: 0px;
   padding: 10px;
   z-index: 10;
+`
+
+export const IconWrapper = styled.View`
+  position: absolute;
+  right: 10;
+  bottom: 10;
 `

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Container, RemovePost, TextBody, Title, User, UserWrapper } from './style';
+import { Container, IconWrapper, RemovePost, TextBody, Title, User, UserWrapper } from './style';
 import { IPosts } from '../../screens/Home/Home';
 import api from '../../services/api';
 import { IUser } from './CardPosts.intefaces';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { useApp } from '../../context/app.context';
 import Toast from 'react-native-toast-message';
 
@@ -107,6 +107,10 @@ function CardPost({ element, showInputPost }: Props): React.ReactElement{
 
       <Title>{element.title}</Title>
       <TextBody>{element.body}</TextBody>
+
+      <IconWrapper>
+        <AntDesign name="edit" size={18} color="blue" />
+      </IconWrapper>
     </Container>
   );
 }

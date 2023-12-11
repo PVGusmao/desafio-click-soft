@@ -38,14 +38,22 @@ function EditPost({route}: Props): React.ReactElement {
       .patch(`/posts/${post.id}`, body)
       .then((res) => {
         const newArray = allPosts.filter((element) => element.id !== post.id);
-        newArray.push(res.data);
+        
+        const newPostObj = {
+          ...res.data,
+          name: post.name ? post.name : '',
+        }
+
+        newArray.push(newPostObj);
         newArray.sort((a,b) => a.id -b.id)
         setAllPosts(newArray);
+        
         Toast.show({
           type: 'success',
           text1: 'Sucesso.',
           text2: 'Post editado com sucesso.',
         });
+
         navigate('Home');
       })
       .catch((error) => {

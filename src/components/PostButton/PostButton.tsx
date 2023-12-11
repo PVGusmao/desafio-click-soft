@@ -5,6 +5,7 @@ import api from '../../services/api';
 import Toast from 'react-native-toast-message';
 import { Button } from '../Common/Button/Button';
 import { useApp } from '../../context/app.context';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   showInputPost: boolean;
@@ -20,6 +21,7 @@ type Props = {
  */
 function PostButton({ showInputPost, setShowInputPost }: Props): React.ReactElement {
   const {allPosts, setAllPosts} = useApp();
+  const {navigate} = useNavigation();
 
   const [newPost, setNewPost] = useState({
     name: '',
@@ -50,8 +52,16 @@ function PostButton({ showInputPost, setShowInputPost }: Props): React.ReactElem
           ...res.data,
           name: newPost.name,
           id: allPosts.length + 1
-        }  
+        }
         setAllPosts([ ...allPosts, obj])
+        
+        Toast.show({
+          type: 'success',
+          text1: 'Que beleza!',
+          text2: 'Post criado com sucesso!'
+        });
+        
+        setShowInputPost(false)
       })
       .catch((error) => {
         Toast.show({
@@ -67,8 +77,8 @@ function PostButton({ showInputPost, setShowInputPost }: Props): React.ReactElem
         <Container onPress={() => setShowInputPost(!showInputPost)}>
           {
             !showInputPost ?
-            <MaterialIcons name="post-add" size={24} color="#666666" /> :
-            <Feather name="arrow-up-circle" size={24} color="#666666" />
+            <MaterialIcons name="post-add" size={24} color="#2f056b" /> :
+            <Feather name="arrow-up-circle" size={24} color="red" />
           }
           <Text>{!showInputPost ? 'O que você tem em mente?' : 'Vamos voltar para os posts?' }</Text>
         </Container>
